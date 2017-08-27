@@ -1,11 +1,16 @@
 /**
  * Created by mupxq on 8/26/17.
  */
-const {
+import{
     GraphQLObjectType,
     GraphQLSchema
-} = require('graphql/type');
+} from 'graphql/type';
 
+import {
+    userQuery,
+    signup,
+    userLogin
+} from './GraphQL/operation/userOperations';
 
 let query = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -19,7 +24,8 @@ let mutation = new GraphQLObjectType({
     name: 'mutation',
     description: 'mutation',
     fields: () => ({
-
+        signup,
+        userLogin
     })
 });
 

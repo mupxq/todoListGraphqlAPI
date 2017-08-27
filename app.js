@@ -3,7 +3,7 @@ const  path = require('path');
 const  favicon = require('serve-favicon');
 const  logger = require('morgan');
 const session = require('express-session');
-const graphqlHTTP = require('express-graphql');
+
 const  cookieParser = require('cookie-parser');
 const  bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -13,6 +13,8 @@ const mongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 
 const credentials = require('./credentials.js');
+import graphqlHTTP from 'express-graphql';
+import schema from './Schema'
 
 const  app = express();
 
@@ -77,8 +79,8 @@ app.use('/', index);
 
 app.use('/graphql', graphqlHTTP (req => ({
     schema,
-    rootValue: { session: req.session }
-    ,graphiql:true
+    rootValue: { session: req.session },
+    graphiql:true
 })));
 
 app.use('/users', users);
