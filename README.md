@@ -4,7 +4,17 @@ provide the todo list project API
 
 ### deployment instructions ###
 
-First, in the project directory run command
+First, in the project src directory edit app.js
+change the origin to you own frond-end project origin
+
+```js
+const corsOptions = {
+    origin: 'http://192.168.1.104:3001',
+    credentials: true,
+};
+```
+Then in the project root directory
+run command
 ```sh
 npm install
 npm run build
