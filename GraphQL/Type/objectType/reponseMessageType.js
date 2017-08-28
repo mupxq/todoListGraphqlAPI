@@ -12,7 +12,7 @@ import {
     GraphQLFloat,
 } from 'graphql/type';
 
-export const responseMessageType = new GraphQLObjectType({
+const responseMessageType = new GraphQLObjectType({
     name:"Response",
     description: "Response message",
     fields: () => ({
@@ -33,3 +33,5 @@ export const responseMessageType = new GraphQLObjectType({
         }
     })
 });
+
+export default responseMessageType

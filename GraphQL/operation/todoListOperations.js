@@ -25,7 +25,7 @@ export const todoListsQuery = {
     resolve: (obj, args, source, fieldASTs) => {
         let res = new Promise((resolve, reject) => {
             let _user = fieldASTs.rootValue.session.user;
-            TodoList.find({userEmail: _user.userEmail}, (err, doc) => {
+            TodoList.find({userEmail: _user.userEmail, Status: true}, (err, doc) => {
                 err ? reject(err) : resolve(doc);
             });
         });
@@ -35,7 +35,7 @@ export const todoListsQuery = {
 
 export const todoList = {
     type: TodoListType,
-    description: "get user's all the todo List",
+    description: "get user's one todo List",
     args: {
         todoListId: {
             name: 'The id of todo list',
@@ -66,6 +66,7 @@ export const createTodoList = {
         let res = new Promise((resolve, reject) => {
             let _user = fieldASTs.rootValue.session.user;
             let todoList = {
+                userEmail: _user.userEmail,
                 todoList: args.todoList
             };
 
@@ -140,11 +141,10 @@ export const deleteTodoList = {
     },
     resolve: (obj, args, source, fieldASTs) => {
         let res = new Promise((resolve, reject) => {
-            let _user = fieldASTs.rootValue.session.user;
 
             TodoList.update(
                 {_id: args.todoListId},
-                {$set: {status: false}},
+                {$set: {Status: false}},
                 (err, doc) => {
                     if (err){
                         reject(err)

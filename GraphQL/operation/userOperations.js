@@ -20,7 +20,6 @@ export const userQuery = {
     resolve: (obj, args, source, fieldASTs) => {
         let res = new Promise((resolve, reject) => {
             let _user = fieldASTs.rootValue.session.user;
-            // console.log(_user);
             User.findOne({userEmail: _user.userEmail}, (err, doc) => {
                 err ? reject(err) : resolve(doc);
             });
@@ -43,13 +42,30 @@ export const signup = {
         }
     },
     resolve: (obj, args, source, fieldASTs) => {
-
-
-        let user = new User();
-        user.userEmail = args.userEmail;
-        user.userPwd = args.password;
-
-        return user.save();
+        let res = new Promise((resolve, reject) => {
+            // console.log(_user);
+            User.findOne({userEmail: args.userEmail}, (err, doc) => {
+                if (err){
+                    reject(err)
+                }
+                if (doc){
+                    reject('You already have a account')
+                }else {
+                    let user = new User();
+                    user.userEmail = args.userEmail;
+                    user.userPwd = args.password;
+                    user.save((err, userInfo) => {
+                        let userSession = {
+                            _id: userInfo._id,
+                            userEmail: userInfo.userEmail
+                        };
+                        fieldASTs.rootValue.session.user = userSession;
+                        resolve(userInfo);
+                    })
+                }
+            });
+        });
+        return res;
     }
 };
 

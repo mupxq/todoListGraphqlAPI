@@ -15,7 +15,9 @@ import {
 import {
     todoList,
     todoListsQuery,
-    createTodoList
+    createTodoList,
+    deleteTodoList,
+    updateTodoList
 } from './GraphQL/operation/todoListOperations'
 
 let query = new GraphQLObjectType({
@@ -34,7 +36,9 @@ let mutation = new GraphQLObjectType({
         signup,
         userLogin,
         todoList,
-        createTodoList
+        createTodoList,
+        deleteTodoList,
+        updateTodoList
     })
 });
 
