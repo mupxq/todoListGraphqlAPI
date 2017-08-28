@@ -69,7 +69,7 @@ app.use(session({
 
 //setup cors
 const corsOptions = {
-    origin: 'http://192.168.1.104:3000',
+    origin: 'http://192.168.1.104:3001',
     credentials: true,
 };
 

@@ -12,11 +12,18 @@ import {
     userLogin
 } from './GraphQL/operation/userOperations';
 
+import {
+    todoList,
+    todoListsQuery,
+    createTodoList
+} from './GraphQL/operation/todoListOperations'
+
 let query = new GraphQLObjectType({
     name: 'RootQueryType',
     description: 'RootQueryType',
     fields: () => ({
         userQuery,
+        todoListsQuery
     })
 });
 
@@ -25,7 +32,9 @@ let mutation = new GraphQLObjectType({
     description: 'mutation',
     fields: () => ({
         signup,
-        userLogin
+        userLogin,
+        todoList,
+        createTodoList
     })
 });
 
